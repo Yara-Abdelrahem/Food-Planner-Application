@@ -9,12 +9,13 @@
         android:id="@+id/splashGif"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_marginTop="256dp"
+        android:layout_marginTop="248dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/animation2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

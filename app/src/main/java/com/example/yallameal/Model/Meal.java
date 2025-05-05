@@ -1,15 +1,24 @@
 package com.example.yallameal.Model;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.List;
 
 // import com.fasterxml.jackson.databind.ObjectMapper; // version 2.11.1
 // import com.fasterxml.jackson.annotation.JsonProperty; // version 2.11.1
 /* ObjectMapper om = new ObjectMapper();
 Root root = om.readValue(myJsonString, Root.class); */
+
+@Entity(tableName = "favorite_meal_table")
+
 public class Meal{
+    @PrimaryKey
+    @NonNull
     public String idMeal;
     public String strMeal;
-    public Object strMealAlternate;
+    public String strMealAlternate;
     public String strCategory;
     public String strArea;
     public String strInstructions;
@@ -31,11 +40,11 @@ public class Meal{
     public String strIngredient13;
     public String strIngredient14;
     public String strIngredient15;
-    public Object strIngredient16;
-    public Object strIngredient17;
-    public Object strIngredient18;
-    public Object strIngredient19;
-    public Object strIngredient20;
+    public String strIngredient16;
+    public String strIngredient17;
+    public String strIngredient18;
+    public String strIngredient19;
+    public String strIngredient20;
     public String strMeasure1;
     public String strMeasure2;
     public String strMeasure3;
@@ -72,7 +81,7 @@ public class Meal{
         return strMealAlternate;
     }
 
-    public void setStrMealAlternate(Object strMealAlternate) {
+    public void setStrMealAlternate(String strMealAlternate) {
         this.strMealAlternate = strMealAlternate;
     }
 
@@ -244,11 +253,11 @@ public class Meal{
         this.strIngredient15 = strIngredient15;
     }
 
-    public Object getStrIngredient16() {
+    public String getStrIngredient16() {
         return strIngredient16;
     }
 
-    public void setStrIngredient16(Object strIngredient16) {
+    public void setStrIngredient16(String strIngredient16) {
         this.strIngredient16 = strIngredient16;
     }
 
@@ -256,7 +265,7 @@ public class Meal{
         return strIngredient17;
     }
 
-    public void setStrIngredient17(Object strIngredient17) {
+    public void setStrIngredient17(String strIngredient17) {
         this.strIngredient17 = strIngredient17;
     }
 
@@ -264,7 +273,7 @@ public class Meal{
         return strIngredient18;
     }
 
-    public void setStrIngredient18(Object strIngredient18) {
+    public void setStrIngredient18(String strIngredient18) {
         this.strIngredient18 = strIngredient18;
     }
 
@@ -272,7 +281,7 @@ public class Meal{
         return strIngredient19;
     }
 
-    public void setStrIngredient19(Object strIngredient19) {
+    public void setStrIngredient19(String strIngredient19) {
         this.strIngredient19 = strIngredient19;
     }
 
@@ -280,7 +289,7 @@ public class Meal{
         return strIngredient20;
     }
 
-    public void setStrIngredient20(Object strIngredient20) {
+    public void setStrIngredient20(String strIngredient20) {
         this.strIngredient20 = strIngredient20;
     }
 

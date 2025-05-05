@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/intro1"
+    tools:context=".Register.View.IntroActivity">
+
+    <Button
+        android:id="@+id/Guest_Btn"
+        android:layout_width="192dp"
+        android:layout_height="47dp"
+        android:backgroundTint="@color/color2"
+        android:text="Enter As A Guest"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.981"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.104" />
+
+    <Button
+        android:id="@+id/signup_email_btn"
+        android:layout_width="271dp"
+        android:layout_height="62dp"
+        android:backgroundTint="@color/black"
+        android:text="Sign up with email"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Guest_Btn"
+        app:layout_constraintVertical_bias="0.285" />
+
+    <Button
+        android:id="@+id/sign_google_btn"
+        android:layout_width="265dp"
+        android:layout_height="65dp"
+        android:text="Continue with Google"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signup_email_btn"
+        app:layout_constraintVertical_bias="0.116" />
+
+    <Button
+        android:id="@+id/sign_face_btn"
+        android:layout_width="268dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="25dp"
+        android:text="Continue with Facebook"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_google_btn"
+        app:layout_constraintVertical_bias="0.045" />
+
+    <Button
+        android:id="@+id/Login_Intro_btn"
+        android:layout_width="292dp"
+        android:layout_height="57dp"
+        android:backgroundTint="@color/black"
+        android:text="Already has account , Log in"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_face_btn"
+        app:layout_constraintVertical_bias="0.183" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,78 @@
+<!-- res/layout/fragment_search.xml -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- 1️⃣ Search bar + icon overlay -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="16dp">
+
+            <EditText
+                android:id="@+id/editTextSearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Enter query…"
+                android:background="@drawable/bg_search_bar"
+                android:paddingStart="48dp"/>
+
+            <ImageView
+                android:id="@+id/searchIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="12dp"
+                android:src="@drawable/search4"
+                android:clickable="true"/>
+        </RelativeLayout>
+
+        <!-- 2️⃣ Toggle buttons -->
+
+        <!-- 3️⃣ RecyclerView for results -->
+
+        <LinearLayout
+            android:layout_width="393dp"
+            android:layout_height="66dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/search_category_btn"
+                style="@style/FilterButton.Selected"
+                android:text="Category" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/search_name_btn"
+                style="@style/FilterButton.Unselected"
+                android:layout_marginStart="8dp"
+                android:text="Meal" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnIngredient"
+                style="@style/FilterButton.Unselected"
+                android:layout_marginStart="8dp"
+                android:text="Ingredient" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnCountry"
+                style="@style/FilterButton.Unselected"
+                android:layout_marginStart="8dp"
+                android:text="Country" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchRecycler"
+            android:layout_width="360dp"
+            android:layout_height="416dp" />
+    </LinearLayout>
+</ScrollView>
