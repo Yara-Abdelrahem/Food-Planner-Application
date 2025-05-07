@@ -20,7 +20,7 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
     private MealsLocalDataSourceImp(Context ctx) {
         //create dao
         appDB =AppDB.getInstance(ctx);
-        mealDAO = appDB.getProductDAO();
+        mealDAO = appDB.getMealDAO();
         storedProduct = mealDAO.getAllMeals();
 
     }

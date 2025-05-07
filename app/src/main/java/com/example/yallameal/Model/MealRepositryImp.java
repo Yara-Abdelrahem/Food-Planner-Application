@@ -27,8 +27,7 @@ public class MealRepositryImp implements MealRepositry{
     @Override
     public LiveData<List<Meal>> getStoredMeals() {
         // return from
-        mealLocalDataSource.getAllMealsStored();
-        return null;
+        return mealLocalDataSource.getAllMealsStored();
     }
 
     @Override

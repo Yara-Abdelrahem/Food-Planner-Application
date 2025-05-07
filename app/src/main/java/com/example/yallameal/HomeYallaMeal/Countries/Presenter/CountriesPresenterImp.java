@@ -32,7 +32,7 @@ public class CountriesPresenterImp implements CountriesPresenter, NetworkCallbac
     @Override
     public void onSuccessMealResutl(MealsResponse meals) {
 //        Log.i(ContentValues.TAG , "Presenter Network :  "+meals.getMeals().get(0).getStrMeal());
-        _view.showData(meals.getMeals());
+//        _view.showData(meals.getMeals());
     }
 
     @Override

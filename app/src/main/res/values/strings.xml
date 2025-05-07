@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Yalla Meal</string>
+    <string name="client_id">566360781978-6sfus5kocjirpoe5pfu99i1od1dte1mk.apps.googleusercontent.com</string>
+    <string name="facebook_app_id">1185831773034083</string>
+    <string name="fb_login_prtocol_schema">d1e738a54a13f7d6ff42f8bb2a1ce258</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--    <string name = "facebook_app_id" > 1234 </string> <string name = "fb_login_protocol_scheme" > fb1234 </string> <string name = "facebook_client_token" > 56789 </string>-->
+
 </resources>

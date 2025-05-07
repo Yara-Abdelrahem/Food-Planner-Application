@@ -3,6 +3,8 @@ package com.example.yallameal.HomeYallaMeal.Meals.Presenter;
 import android.content.ContentValues;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+
 import com.example.yallameal.HomeYallaMeal.Meals.View.AllMealsView;
 import com.example.yallameal.HomeYallaMeal.Meals.View.IallMealClickListener;
 import com.example.yallameal.Model.CountryResponse;
@@ -12,6 +14,8 @@ import com.example.yallameal.Model.MealRepositry;
 import com.example.yallameal.Model.MealsResponse;
 import com.example.yallameal.Model.CategoryResponse;
 import com.example.yallameal.Network.NetworkCallback;
+
+import java.util.List;
 
 public class MealsPresenterImp implements MealsPresenter, NetworkCallback , IallMealClickListener {
 
@@ -60,9 +64,15 @@ public class MealsPresenterImp implements MealsPresenter, NetworkCallback , Iall
     public void getAllIngredient() {
         _repo.getAllIngredient_Network(this);
     }
+
     @Override
     public void addToFav(Meal meal) {
-        AddMealToFav(meal);
+        _repo.insertMeal(meal);
+
+    }
+    @Override
+    public LiveData<List<Meal>> getlocalmeas(){
+       return  _repo.getStoredMeals();
     }
 
     @Override
@@ -94,9 +104,9 @@ public class MealsPresenterImp implements MealsPresenter, NetworkCallback , Iall
     }
 
     @Override
-    public void AddMealToFav(Meal meal) {
-        _repo.insertMeal(meal);
+    public void OnClick_ShowMealDetails(String mealid) {
 
     }
+
 
 }

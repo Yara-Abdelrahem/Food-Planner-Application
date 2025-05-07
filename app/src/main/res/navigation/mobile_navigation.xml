@@ -7,31 +7,40 @@
 
     <fragment
         android:id="@+id/navigation_Home"
-        android:name="com.example.yallameal.AllMeals.View.ui.home.HomeFragment"
+        android:name="com.example.yallameal.HomeYallaMeal.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.example.yallameal.AllMeals.View.ui.search.SearchFragment"
+        android:name="com.example.yallameal.HomeYallaMeal.ui.search.SearchFragment"
         android:label="Search"
         tools:layout="@layout/fragment_serach" />
 
 
     <fragment
         android:id="@+id/navigation_Calender"
-        android:name="com.example.yallameal.AllMeals.View.ui.calender.CalenderFragment"
+        android:name="com.example.yallameal.HomeYallaMeal.ui.calender.CalenderFragment"
         android:label="Calender"
         tools:layout="@layout/fragment_calender" />
 
     <fragment
         android:id="@+id/navigation_Favorite"
-        android:name="com.example.yallameal.AllMeals.View.ui.favorite.FavoriteFragment"
+        android:name="com.example.yallameal.HomeYallaMeal.ui.favorite.FavoriteFragment"
         android:label="Favorite"
         tools:layout="@layout/fragment_favorite" />
 
     <fragment
         android:id="@+id/navigation_Profile"
-        android:name="com.example.yallameal.AllMeals.View.ui.profile.ProfileFragment"
+        android:name="com.example.yallameal.HomeYallaMeal.ui.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/navigation_meal_detail"
+        android:name="com.example.yallameal.MealDetailFragment"
+        android:label="Meal Details">
+        <argument
+            android:name="meal_id"
+            app:argType="string" />
+    </fragment>
 </navigation>

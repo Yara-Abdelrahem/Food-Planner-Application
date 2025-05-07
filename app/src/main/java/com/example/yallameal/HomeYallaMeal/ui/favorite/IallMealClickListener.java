@@ -1,6 +1,4 @@
-package com.example.yallameal.HomeYallaMeal.Meals.View;
-
-import com.example.yallameal.Model.Meal;
+package com.example.yallameal.HomeYallaMeal.ui.favorite;
 
 public interface IallMealClickListener {
 

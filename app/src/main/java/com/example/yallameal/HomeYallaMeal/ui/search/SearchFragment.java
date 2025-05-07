@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +29,7 @@ import com.example.yallameal.HomeYallaMeal.Meals.View.AllMealsView;
 import com.example.yallameal.HomeYallaMeal.Meals.View.IallMealClickListener;
 import com.example.yallameal.HomeYallaMeal.Meals.View.RIngredientAdapter;
 import com.example.yallameal.HomeYallaMeal.Meals.View.RMealAdapter;
+import com.example.yallameal.MealDetailFragment;
 import com.example.yallameal.Model.Category;
 import com.example.yallameal.Model.Country;
 import com.example.yallameal.Model.Ingredient;
@@ -75,8 +78,6 @@ public class SearchFragment extends Fragment implements AllMealsView , IallMealC
         editTextSearch= root.findViewById(R.id.editTextSearch);
         searchIcon    = root.findViewById(R.id.searchIcon);
         searchRecycler= root.findViewById(R.id.searchRecycler);
-
-        //
 
         // RecyclerView
         searchRecycler.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -188,10 +189,18 @@ public class SearchFragment extends Fragment implements AllMealsView , IallMealC
         searchRecycler.setAdapter(ingredientAdapter);
         ingredientAdapter.notifyDataSetChanged();
     }
-    @Override
-    public void AddMealToFav(Meal meal) {
 
+    @Override
+    public void OnClick_ShowMealDetails(String mealid) {
+        MealDetailFragment detailFragment = new MealDetailFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("meal_id", mealid);
+        detailFragment.setArguments(bundle);
+        NavController navController = Navigation.findNavController(getView());
+        navController.navigate(R.id.navigation_meal_detail,bundle);
     }
+
+
 }
 
 

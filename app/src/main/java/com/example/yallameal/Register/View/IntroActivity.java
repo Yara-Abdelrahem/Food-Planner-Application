@@ -1,21 +1,26 @@
 package com.example.yallameal.Register.View;
+
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yallameal.HomeYallaMeal.HomeActivity;
 import com.example.yallameal.Login.View.LoginActivity;
 import com.example.yallameal.R;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
 import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -27,55 +32,50 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import org.json.JSONException;
+
 import java.util.Arrays;
 
-
 public class IntroActivity extends AppCompatActivity {
+
     private static final int RC_SIGN_IN = 9001;
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth;
-    Button SignupMailBtn;
-    Intent sign_intent;
-
-    Button signgooglebtn;
-    Intent sign_google_intent;
-
-    Button LoginnupMailBtn;
-    Intent login_intent;
-
-    Button Guest_Btn;
-    Intent Guest_intent;
+    private CallbackManager callbackManager;
+    SharedPreferences sharedPreferences;
+    Button SignupMailBtn, signgooglebtn, LoginnupMailBtn, Guest_Btn;
+    Intent sign_intent, sign_google_intent, login_intent, Guest_intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_intro);
+
         mAuth = FirebaseAuth.getInstance();
-        // Configure Google Sign-In
+        callbackManager = CallbackManager.Factory.create(); // Initialize Facebook callback manager
+
+        
+        // Google Sign-In setup
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id)) // From google-services.json
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        // Declare UI components
-        SignupMailBtn = findViewById(R.id.signup_email_btn);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        sharedPreferences = getSharedPreferences("MyPrefsFile", MODE_PRIVATE); // <-- declare here only
+
+        // Buttons
+        SignupMailBtn = findViewById(R.id.signup_email_intro_btn);
         signgooglebtn = findViewById(R.id.sign_google_btn);
         LoginnupMailBtn = findViewById(R.id.Login_Intro_btn);
         Guest_Btn = findViewById(R.id.Guest_Btn);
-        Button loginFacebookButton = findViewById(R.id.sign_face_btn);
+        Button loginFacebookButton = findViewById(R.id.signup_face_btn);
 
-        printHashKey(this);
+        // Google sign-in click
+        signgooglebtn.setOnClickListener(v -> signIn());
 
-
-        // Initialize sign in client
-        // Email Sign-Up
-        signgooglebtn.setOnClickListener(v -> {
-             signIn();
-        });
+        // Email SignUp
         SignupMailBtn.setOnClickListener(v -> {
             sign_intent = new Intent(IntroActivity.this, SignUpActivity.class);
             startActivity(sign_intent);
@@ -88,39 +88,74 @@ public class IntroActivity extends AppCompatActivity {
             startActivity(login_intent);
             finish();
         });
+
+        // Facebook login click
         loginFacebookButton.setOnClickListener(v -> {
             LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email", "public_profile"));
-
         });
 
-        // Continue as Guest
+        // Facebook login callback
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                AccessToken accessToken = loginResult.getAccessToken();
+                fetchFacebookEmail(accessToken);
+                Intent guestIntent = new Intent(IntroActivity.this, HomeActivity.class);
+                startActivity(guestIntent);
+                finish();
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(IntroActivity.this, "Facebook login canceled", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                Toast.makeText(IntroActivity.this, "Facebook login failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Guest login
         Guest_Btn.setOnClickListener(v -> {
-            Guest_intent = new Intent(IntroActivity.this, HomeActivity.class);
-            startActivity(Guest_intent);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.remove("user_email");
+            editor.apply();
+            Intent guestIntent = new Intent(IntroActivity.this, HomeActivity.class);
+            startActivity(guestIntent);
             finish();
         });
     }
+
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+    // Google Sign-In result handler
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data); // Pass to Facebook
 
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-                // Google Sign-In success
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account.getIdToken());
+
+                if (account != null) {
+                    String email = account.getEmail();
+                    saveEmailToSharedPreferences(email);
+                    navigateToHome();
+                }
             } catch (ApiException e) {
                 Toast.makeText(this, "Google sign in failed", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
+    // Authenticate with Firebase using Google token
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential)
@@ -128,31 +163,45 @@ public class IntroActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         Toast.makeText(this, "Signed in as " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
-                        // Navigate to home activity
                     } else {
                         Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
-    public static void printHashKey(Context context) {
-        try {
-            PackageInfo info = context.getPackageManager().getPackageInfo(
-                    context.getPackageName(),
-                    PackageManager.GET_SIGNATURES
-            );
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                String hashKey = new String(Base64.encode(md.digest(), 0));
-                Log.i("KeyHash", "Hash Key: " + hashKey);
+
+    // Get email from Facebook Graph API
+    private void fetchFacebookEmail(AccessToken accessToken) {
+        GraphRequest request = GraphRequest.newMeRequest(accessToken, (object, response) -> {
+            try {
+                String email = object.has("email") ? object.getString("email") : null;
+                if (email != null) {
+                    saveEmailToSharedPreferences(email);
+                    navigateToHome();
+                    Log.i("facebook", email);
+                } else {
+                    Log.e("Facebook", "Email not available from Facebook");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (NoSuchAlgorithmException e) {
-            Log.e("KeyHash", "printHashKey()", e);
-        } catch (Exception e) {
-            Log.e("KeyHash", "printHashKey()", e);
-        }
+        });
+
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "email");
+        request.setParameters(parameters);
+        request.executeAsync();
     }
 
+    private void saveEmailToSharedPreferences(String email) {
+//        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefsFile", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("user_email", email);
+        editor.apply();
+    }
 
-
+    private void navigateToHome() {
+        Intent intent = new Intent(IntroActivity.this, HomeActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

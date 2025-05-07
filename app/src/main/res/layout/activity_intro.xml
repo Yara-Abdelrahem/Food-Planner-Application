@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="0.104" />
 
     <Button
-        android:id="@+id/signup_email_btn"
+        android:id="@+id/signup_email_intro_btn"
         android:layout_width="271dp"
         android:layout_height="62dp"
         android:backgroundTint="@color/black"
@@ -41,11 +41,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup_email_btn"
+        app:layout_constraintTop_toBottomOf="@+id/signup_email_intro_btn"
         app:layout_constraintVertical_bias="0.116" />
 
     <Button
-        android:id="@+id/sign_face_btn"
+        android:id="@+id/signup_face_btn"
         android:layout_width="268dp"
         android:layout_height="57dp"
         android:layout_marginTop="25dp"
@@ -67,7 +67,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_face_btn"
+        app:layout_constraintTop_toBottomOf="@+id/signup_face_btn"
         app:layout_constraintVertical_bias="0.183" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

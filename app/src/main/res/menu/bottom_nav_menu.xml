@@ -8,7 +8,7 @@
 
     <item
         android:id="@+id/navigation_search"
-        android:icon="@drawable/search2"
+        android:icon="@drawable/search4"
         android:title="search" />
 
     <item
@@ -17,7 +17,7 @@
         android:title="calender" />
     <item
         android:id="@+id/navigation_Favorite"
-        android:icon="@drawable/heart"
+        android:icon="@drawable/heart21"
         android:title="favorite" />
     <item
         android:id="@+id/navigation_Profile"

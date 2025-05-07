@@ -16,25 +16,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.yallameal.FavoritMeals.View.IMealClickListener;
 import com.example.yallameal.Model.Meal;
 import com.example.yallameal.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RMealAdapter extends RecyclerView.Adapter<RMealAdapter.ViewHolder> {
+public class RMealDetailsAdapter extends RecyclerView.Adapter<RMealDetailsAdapter.ViewHolder> {
 
     private final Context context;
     private List<Meal> values;
     private Meal favprod;
-    private IallMealClickListener listener;
+    IMealClickListener  iMealClickListener;
     private static final String TAG = "RecyclerView";
 
-    public RMealAdapter(Context context, List<Meal>myDataset, IallMealClickListener ondataupdate) {
+    public RMealDetailsAdapter(Context context, List<Meal>myDataset , IMealClickListener  iMealClickListener) {
         values=new ArrayList<Meal>();
-        listener=ondataupdate;
         this.context = context;
-
+        this.iMealClickListener = iMealClickListener;
         if (myDataset.size()>0){
             values = myDataset;
         }else {
@@ -64,19 +64,12 @@ public class RMealAdapter extends RecyclerView.Adapter<RMealAdapter.ViewHolder> 
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.drawable.ic_launcher_foreground)
                 .into(holder.imageview);
-
-        holder.itemView.setOnClickListener(v -> {
-            Log.d("RMealAdapter", "Clicked meal: " + values.get(position).getStrMeal());
-            listener.OnClick_ShowMealDetails(values.get(position).getIdMeal()); // Use ID instead of name if needed
+        holder.addmealfavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iMealClickListener.AddMealFav(values.get(position).getIdMeal());
+            }
         });
-
-//        holder.add_fav_btn_adapter.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.i(TAG , "Value ; "+position+" "+values.size());
-//                listener.AddMealToFav(values.get(position));
-//            }
-//        });
     }
     public Meal getFavProd(){
         if (favprod != null){
@@ -94,7 +87,8 @@ public class RMealAdapter extends RecyclerView.Adapter<RMealAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView txttitle ;
-        public ImageView imageview;
+        public ImageView imageview , addmealfavorite;
+
         public ConstraintLayout constraintLayout;
         public View layout;
 
@@ -103,6 +97,8 @@ public class RMealAdapter extends RecyclerView.Adapter<RMealAdapter.ViewHolder> 
             layout=itemView;
             txttitle=itemView.findViewById(R.id.text_meal_name);
             imageview = itemView.findViewById(R.id.image_meal);
+            addmealfavorite = itemView.findViewById(R.id.addmealfavorite);
+
             constraintLayout  =itemView.findViewById(R.id.home_layout);
         }
     }

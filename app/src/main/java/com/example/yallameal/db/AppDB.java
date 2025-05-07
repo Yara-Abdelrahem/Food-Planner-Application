@@ -11,7 +11,7 @@ import com.example.yallameal.Model.Meal;
 @Database(entities = {Meal.class}, version = 1)
 public abstract class AppDB extends RoomDatabase {
     private static AppDB instance = null;
-    public abstract MealDAO getProductDAO();
+    public abstract MealDAO getMealDAO();
     public static synchronized AppDB getInstance(Context context){
         if (instance == null){
             instance = Room.databaseBuilder(context.getApplicationContext(), AppDB.class, "FoodPlannerDB")

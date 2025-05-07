@@ -5,6 +5,7 @@ import com.example.yallameal.Model.Ingredient;
 import com.example.yallameal.Model.Meal;
 import com.example.yallameal.Model.Category;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public interface AllMealsView {
