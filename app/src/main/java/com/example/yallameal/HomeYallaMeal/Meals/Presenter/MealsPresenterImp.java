@@ -11,6 +11,7 @@ import com.example.yallameal.Model.CountryResponse;
 import com.example.yallameal.Model.IngredientResponse;
 import com.example.yallameal.Model.Meal;
 import com.example.yallameal.Model.MealRepositry;
+import com.example.yallameal.Model.MealSchedule;
 import com.example.yallameal.Model.MealsResponse;
 import com.example.yallameal.Model.CategoryResponse;
 import com.example.yallameal.Network.NetworkCallback;
@@ -73,6 +74,15 @@ public class MealsPresenterImp implements MealsPresenter, NetworkCallback , Iall
     @Override
     public LiveData<List<Meal>> getlocalmeas(){
        return  _repo.getStoredMeals();
+    }
+    @Override
+    public LiveData<List<MealSchedule>>getAllMealsSchedDate(String date){
+        return _repo.getAllMealsSchedDate(date);
+    }
+
+    @Override
+    public void insertschedulemeal(MealSchedule mealSchedule) {
+            _repo.insertschedulemeal(mealSchedule);
     }
 
     @Override

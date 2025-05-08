@@ -73,8 +73,9 @@ public class FavoriteFragment extends Fragment implements AllMealsView, IallMeal
             // Use the email as needed
             Toast.makeText(requireContext(), "Welcome back, " + userEmail, Toast.LENGTH_SHORT).show();
             linearLayoutManager = new LinearLayoutManager(requireContext());
+
             LiveData<List<Meal>> all_meals = mealsPresenter.getlocalmeas();
-            all_meals.observe(getViewLifecycleOwner(), meals -> {
+                all_meals.observe(getViewLifecycleOwner(), meals -> {
                 if (meals != null && meals.size() > 0) {
                     Log.i("jsijjdmkssw---------------", meals.toString());
                     favoriteAdapter = new FavoriteAdapter( meals, this);

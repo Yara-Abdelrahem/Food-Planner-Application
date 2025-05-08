@@ -80,4 +80,14 @@ public class MealRepositryImp implements MealRepositry{
     public void deleteMeal(Meal meal) {
         mealLocalDataSource.deleteMeal(meal);
     }
+
+    @Override
+    public LiveData<List<MealSchedule>> getAllMealsSchedDate(String date) {
+        return mealLocalDataSource.getAllMealsSchedDate(date);
+    }
+
+    @Override
+    public void insertschedulemeal(MealSchedule mealSchedule) {
+        mealLocalDataSource.insertschedulemeal(mealSchedule);
+    }
 }

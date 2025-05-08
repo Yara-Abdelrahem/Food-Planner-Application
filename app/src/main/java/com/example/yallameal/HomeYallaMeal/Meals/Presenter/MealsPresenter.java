@@ -3,6 +3,7 @@ package com.example.yallameal.HomeYallaMeal.Meals.Presenter;
 import androidx.lifecycle.LiveData;
 
 import com.example.yallameal.Model.Meal;
+import com.example.yallameal.Model.MealSchedule;
 
 import java.util.List;
 
@@ -25,4 +26,7 @@ public interface MealsPresenter {
     void addToFav(Meal meal);
 
     LiveData<List<Meal>> getlocalmeas();
+
+    LiveData<List<MealSchedule>>getAllMealsSchedDate(String date);
+    void insertschedulemeal(MealSchedule mealSchedule);
 }

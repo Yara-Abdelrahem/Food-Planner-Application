@@ -6,6 +6,7 @@ import android.os.Handler;
 import androidx.lifecycle.LiveData;
 
 import com.example.yallameal.Model.Meal;
+import com.example.yallameal.Model.MealSchedule;
 
 import java.util.List;
 
@@ -13,7 +14,8 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
 
     AppDB appDB;
     MealDAO mealDAO;
-    LiveData<List<Meal>> storedProduct;
+    LiveData<List<Meal>> storedFavMeal;
+    LiveData<List<MealSchedule>> storedSchedMeal;
     private static MealsLocalDataSourceImp instance;
     Handler handler;
 
@@ -21,7 +23,7 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
         //create dao
         appDB =AppDB.getInstance(ctx);
         mealDAO = appDB.getMealDAO();
-        storedProduct = mealDAO.getAllMeals();
+        storedFavMeal = mealDAO.getAllMeals();
 
     }
     public static MealsLocalDataSourceImp getInstance(Context ctx){
@@ -55,6 +57,22 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
 
     @Override
     public LiveData<List<Meal>> getAllMealsStored() {
-        return storedProduct;
+        return storedFavMeal;
+    }
+
+
+    @Override
+    public LiveData<List<MealSchedule>> getAllMealsSchedDate(String date) {
+        return mealDAO.getMealSchedulesByDate(date);
+    }
+
+    @Override
+    public void insertschedulemeal(MealSchedule mealSchedule) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mealDAO.insertMealSchedule(mealSchedule);
+            }
+        }).start();
     }
 }

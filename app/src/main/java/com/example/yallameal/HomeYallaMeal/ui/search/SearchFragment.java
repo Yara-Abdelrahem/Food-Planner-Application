@@ -156,7 +156,8 @@ public class SearchFragment extends Fragment implements AllMealsView , IallMealC
             case CATEGORY:   adapter = categoryAdapter;   break;
             case NAME:       adapter = mealAdapter;       break;
             case INGREDIENT: adapter = ingredientAdapter; break;
-            default:         adapter = countryAdapter;    break;
+            case COUNTRY:    adapter = countryAdapter;    break;
+            default:         adapter = mealAdapter;    break;
         }
         searchRecycler.setAdapter(adapter);
     }

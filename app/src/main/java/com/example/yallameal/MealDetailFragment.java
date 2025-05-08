@@ -1,5 +1,6 @@
 package com.example.yallameal;
 
+import android.app.DatePickerDialog;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -28,6 +29,7 @@ import com.example.yallameal.Model.Country;
 import com.example.yallameal.Model.Ingredient;
 import com.example.yallameal.Model.Meal;
 import com.example.yallameal.Model.MealRepositryImp;
+import com.example.yallameal.Model.MealSchedule;
 import com.example.yallameal.Network.MealsRemoteDataSourceImp;
 import com.example.yallameal.db.MealsLocalDataSourceImp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,10 +41,11 @@ import com.google.firebase.storage.FirebaseStorage;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class MealDetailFragment extends Fragment implements AllMealsView , IMealClickListener {
-    private ImageView imageMeal , addfav;
+    private ImageView imageMeal , addfav , addtocalender;
     private TextView textMealName, textMealOrigin, textMealIngredients, textMealInstructions;
     private WebView webViewMealVideo;
     private MealsPresenter mealsPresenter;
@@ -83,6 +86,7 @@ public class MealDetailFragment extends Fragment implements AllMealsView , IMeal
         textMealInstructions = view.findViewById(R.id.text_meal_instructions);
         webViewMealVideo = view.findViewById(R.id.webview_meal_video);
         addfav = view.findViewById(R.id.addmealfavorite);
+        addtocalender = view.findViewById(R.id.addtocalender);
         // Retrieve meal ID from arguments
         String mealId = getArguments().getString("meal_id");
 
@@ -109,6 +113,26 @@ public class MealDetailFragment extends Fragment implements AllMealsView , IMeal
                 }
             }
         });
+        addtocalender.setOnClickListener(v -> {
+            // Get current date
+            Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                    requireContext(),
+                    (datePickerView, selectedYear, selectedMonth, selectedDay) -> {
+                        // +1 because month index starts from 0
+                        String date = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
+                        mealsPresenter.insertschedulemeal(new MealSchedule(meal, date));
+                    },
+                    year, month, day
+            );
+            datePickerDialog.show();
+
+        });
+
 
     }
 

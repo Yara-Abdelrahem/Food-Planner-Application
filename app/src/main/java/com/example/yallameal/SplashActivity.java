@@ -27,17 +27,17 @@ public class SplashActivity extends AppCompatActivity {
 //        LottieAnimationView animationView = findViewById(R.id.splash1);
 //        animationView.setAnimation("animation1.json");
 //        animationView.playAnimation();
-
+        ImageView gifView = findViewById(R.id.splashGif);
+        Glide.with(this)
+                .asGif()
+                .load(R.drawable.animation2) // No need for .gif extension
+                .into(gifView);
         new Handler().postDelayed(()->{
             Intent intent = new Intent(SplashActivity.this, IntroActivity.class);
             startActivity(intent);
             finish();
-        },1000);
-//        ImageView gifView = findViewById(R.id.splashGif);
-//        Glide.with(this)
-//                .asGif()
-//                .load(R.drawable.animation2) // No need for .gif extension
-//                .into(gifView);
+        },2500);
+
 //
     }
 }

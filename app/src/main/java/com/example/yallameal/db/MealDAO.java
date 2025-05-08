@@ -7,6 +7,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 import com.example.yallameal.Model.Meal;
+import com.example.yallameal.Model.MealSchedule;
 
 import java.util.List;
 
@@ -19,4 +20,15 @@ public interface MealDAO {
 
     @Delete
     void deleteMeal(Meal prod);
+    @Insert
+    void insertMealSchedule(MealSchedule mealSchedule);
+
+    @Delete
+    void deleteMealSchedule(MealSchedule mealSchedule);
+
+//    @Query("SELECT * FROM meal_schedule_table")
+//   LiveData<List<MealSchedule>> getAllMealSchedules();
+
+    @Query("SELECT * FROM meal_schedule_table WHERE date = :date")
+    LiveData<List<MealSchedule>>  getMealSchedulesByDate(String date);
 }

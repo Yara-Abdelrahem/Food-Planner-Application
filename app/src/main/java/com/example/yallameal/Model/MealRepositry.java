@@ -27,4 +27,7 @@ public interface MealRepositry {
     void insertMeal(Meal meal);
 
     void deleteMeal(Meal meal);
+
+    LiveData<List<MealSchedule>> getAllMealsSchedDate(String date);
+    void insertschedulemeal(MealSchedule mealSchedule);
 }

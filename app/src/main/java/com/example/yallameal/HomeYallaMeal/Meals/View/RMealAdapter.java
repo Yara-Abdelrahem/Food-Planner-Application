@@ -70,13 +70,6 @@ public class RMealAdapter extends RecyclerView.Adapter<RMealAdapter.ViewHolder> 
             listener.OnClick_ShowMealDetails(values.get(position).getIdMeal()); // Use ID instead of name if needed
         });
 
-//        holder.add_fav_btn_adapter.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.i(TAG , "Value ; "+position+" "+values.size());
-//                listener.AddMealToFav(values.get(position));
-//            }
-//        });
     }
     public Meal getFavProd(){
         if (favprod != null){
